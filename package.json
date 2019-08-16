@@ -14,7 +14,7 @@
     "lint": "prettier --write \"src/**/*.js\" && eslint_d --fix src",
     "test": "jest __tests__/tests",
     "coverage": "npm run test -- --coverage",
-    "ci:coverage": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "ci:coverage": "npm run coverage && codecov"
   },
   "pre-commit": "lint",
   "lint-staged": {
@@ -112,6 +112,7 @@
     "babel-jest": "^23.4.2",
     "babel-loader": "8.0.0-beta.2",
     "babel-plugin-import": "^1.10.0",
+    "codecov": "^3.5.0",
     "copy-webpack-plugin": "latest",
     "coveralls": "^3.0.1",
     "cross-env": "^4.0.0",
