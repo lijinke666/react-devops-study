@@ -8,7 +8,8 @@ module.exports = {
   modulePathIgnorePatterns: ['/.history/', 'lib', 'dist'],
   moduleDirectories: ['node_modules', '.', 'src', 'src/shared'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
-  collectCoverageFrom: ['src/test.js'],
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
   transform: {
     '^.+\\.jsx?$': 'babel-jest'
   }

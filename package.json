@@ -12,7 +12,7 @@
     "upgrade": "npm update",
     "precommit": "lint-staged",
     "lint": "prettier --write \"src/**/*.js\" && eslint_d --fix src",
-    "test": "cross-env NODE_ENV=test jest __tests__/index.test.js",
+    "test": "jest",
     "coverage": "npm run test -- --coverage",
     "ci:coverage": "npm run coverage && codecov"
   },
