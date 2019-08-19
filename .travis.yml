@@ -5,6 +5,9 @@ node_js:
 
 sudo: false
 
+services:
+  - docker
+
 branches:
   only:
     - master
@@ -20,8 +23,12 @@ cache:
     - 'node_modules'
 
 script:
+  - yarn
   - yarn lint
   - yarn test
+  - yarn ci:coverage
 
 after_script:
-  - yarn ci:coverage
+  - docker build -t react-devops-study ./
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - docker push react-devops-study
