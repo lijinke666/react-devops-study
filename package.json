@@ -12,7 +12,7 @@
     "upgrade": "npm update",
     "precommit": "lint-staged",
     "lint": "prettier --write \"src/**/*.js\" && eslint_d --fix src",
-    "test": "jest __tests__/tests",
+    "test": "cross-env NODE_ENV=test jest __tests__/index.test.js",
     "coverage": "npm run test -- --coverage",
     "ci:coverage": "npm run coverage && codecov"
   },
@@ -100,6 +100,7 @@
     "@babel/plugin-syntax-import-meta": "^7.2.0",
     "@babel/plugin-transform-async-to-generator": "^7.4.4",
     "@babel/plugin-transform-exponentiation-operator": "^7.2.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.5.0",
     "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",

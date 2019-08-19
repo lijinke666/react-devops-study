@@ -1,21 +1,21 @@
-import { lazy } from "react";
+import { lazy } from 'react'
 
-const Home = lazy(() => import(/* webpackChunkName: "home" */ "Home"));
+const Home = lazy(() => import(/* webpackChunkName: "home" */ 'Home'))
 
 export const routes = [
   {
-    path: "/",
+    path: '/',
     component: Home,
-    text: "首页",
+    text: '首页',
     children: []
   }
-];
+]
 
 export const getAllFlattenRoutes = (routers = routes) => {
   return routers.reduce((prev, curr) => {
     return prev.concat(
       curr,
       Array.isArray(curr.children) ? getAllFlattenRoutes(curr.children) : []
-    );
-  }, []);
-};
+    )
+  }, [])
+}
