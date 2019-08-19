@@ -27,6 +27,7 @@ script:
   - yarn lint
   - yarn test
   - yarn ci:coverage
+  - yarn build
 
 after_script:
   - docker build -t react-devops-study ./
