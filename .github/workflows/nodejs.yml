@@ -1,32 +1,69 @@
+# 流水线的名字
 name: Node CI
 
-on: 
+# push 和 pull_request 的时候触发
+on:
   push:
     branches:
       - master
+    tags:
+      - v1
   pull_request:
     branches:
       - master
 
+# 任务列表
 jobs:
   build:
-
+    # 执行平台
     runs-on: ubuntu-latest
+
+    container:
+      image: thonatos/github-actions-nodejs
 
     strategy:
       matrix:
         node-version: [8.x, 10.x, 12.x]
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
-      run: |
-        npm install
-        npm run build --if-present
-        npm run test
-      env:
-        CI: true
+      # 拉取代码
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # 安装依赖
+      - name: Install Dependencies
+        run: |
+          npm install -g yarn
+          yarn
+
+      # 打包项目
+      - name: Build App
+        run: yarn build
+
+      # 风格检测
+      - name: Eslint Check
+        run: yarn lint
+
+      # 单元测试
+      - name: Test App
+        run: yarn test
+
+      # 单元测试覆盖率 (codecov)
+      - name: Code Coverage
+        run: yarn ci:coverage
+        env:
+          # 当前任务需要依赖的环境变量 在 github 配置
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      # 构建 Docker 镜像
+      - name: Docker Build
+        run: |
+          docker build -t jinkeli/react-project ./
+          docker login -u $DOCKER_USER -p $DOCKER_PASS
+          docker push jinkeli/react-project
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
