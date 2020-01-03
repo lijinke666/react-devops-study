@@ -31,8 +31,8 @@ export default class Home extends PureComponent {
   }
   render() {
     return (
-      <div key="home" className="home">
-        测试 PR
+      <div className="home">
+        react project
       </div>
     )
   }

@@ -60,6 +60,9 @@ jobs:
           # 当前任务需要依赖的环境变量 在 github 配置
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Build App
+        run: npm run build
+
       # 构建 Docker 镜像
       - name: Docker Build
         run: |
